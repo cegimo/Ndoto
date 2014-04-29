@@ -24,8 +24,8 @@
       this.startTxt.x = this.game.width / 2 - this.startTxt.textWidth / 2;
       */
       this.principal_background = this.add.sprite(0, 0, 'principal_background');
-      //this.playButton = this.add.button(200, 375, 'buttonPlay', function() { this.game.state.start('options') }, this, 1, 0, 0);
-      this.input.onDown.add(this.onDown, this);
+      this.playButton = this.add.button(470, 200, 'buttonPlay', function() { this.game.state.start('game') }, this, 1, 0, 0);
+      //this.input.onDown.add(this.onDown, this);
     },
 
     update: function () {
