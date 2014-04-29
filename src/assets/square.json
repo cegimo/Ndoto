@@ -1,0 +1,39 @@
+{ "height":6,
+ "layers":[
+        {
+         "data":[3, 4, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 1],
+         "height":6,
+         "name":"square",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":6,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "tileheight":100,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"square.png",
+         "imageheight":200,
+         "imagewidth":200,
+         "margin":0,
+         "name":"square",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":100,
+         "tilewidth":100
+        }],
+ "tilewidth":100,
+ "version":1,
+ "width":6
+}
