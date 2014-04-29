@@ -22,11 +22,13 @@ this.cursors = null;
       this.input.onDown.add(this.onInputDown, this);*/
       this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.stage.backgroundColor = '#787878';
+    this.stage.backgroundColor = '#FFFFFF';
 
-    this.map = this.add.tilemap('mario');
+    this.map = this.add.tilemap('map_prototype');
 
-    this.map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
+    this.map.addTilesetImage('tiles');
+    //this.map.addTilesetImage('tiles2');
+
 
     //  14 = ? block
     // map.setCollisionBetween(14, 15);
@@ -37,7 +39,7 @@ this.cursors = null;
     this.map.setCollision(40);
     this.map.setCollision(14);*/
     
-    this.layer = this.map.createLayer('World1');
+    this.layer = this.map.createLayer('plataformas');
 
     //  Un-comment this on to see the collision tiles
     // layer.debug = true;
