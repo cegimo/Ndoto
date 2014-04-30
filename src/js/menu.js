@@ -25,7 +25,7 @@
       this.startTxt.x = this.game.width / 2 - this.startTxt.textWidth / 2;
       */
       this.principal_background = this.add.sprite(0, 0, 'principalBackground');
-      this.playButton = this.add.button(470, 225, 'buttonPlay', function() { this.game.state.start('game') }, this, 1, 0);
+      this.playButton = this.add.button(470, 225, 'buttonPlay', function() { this.game.state.start('game') }, this, 1, 0, 0);
       this.buttonCredits = this.add.button(485, 400, 'buttonCredits', function() { this.game.state.start('credits') }, this, 1, 0, 0);
       //this.input.onDown.add(this.onDown, this);
     },
@@ -35,7 +35,8 @@
     },
 
     onDown: function () {
-      this.game.state.start('game');
+      //this.game.state.start('game');
+      //this.game.state.start('credits');
     }
   };
 

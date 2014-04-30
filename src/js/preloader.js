@@ -15,7 +15,7 @@
       this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
       this.load.setPreloadSprite(this.asset);
       this.load.image('principalBackground', 'assets/principalBackground.png');
-      this.load.image('principalBackground', 'assets/creditsBackground.png');
+      this.load.image('creditsBackground', 'assets/creditsBackground.png');
       this.load.spritesheet('buttonPlay', 'assets/buttonPlay.png', 278, 137);
       this.load.spritesheet('buttonCredits', 'assets/buttonCredits.png', 278, 127);
       this.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
