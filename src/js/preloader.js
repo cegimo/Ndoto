@@ -20,7 +20,7 @@
       this.load.spritesheet('buttonCredits', 'assets/buttonCredits.png', 278, 127);
       this.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
       this.load.image('plataformas', 'assets/plataformas.png');
-      this.load.image('player', 'assets/phaser-dude.png');
+      this.load.image('boy', 'assets/child.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
     },
 

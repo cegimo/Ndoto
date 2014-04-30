@@ -18,27 +18,13 @@
 
       this.creditsBackground = this.add.sprite(0, 0, 'creditsBackground');
 
-      /*this.titleTxt = this.add.bitmapText(x, y, 'Credits', {font: '16px minecraftia', align: 'center'});
-      this.titleTxt.anchor.setTo(0.5, 0.5);
 
-      y = y + this.titleTxt.height + 5;
-      this.startTxt = this.add.bitmapText(x, y, 'Luis Miguel García y César Gil', {font: '12px minecraftia', align: 'center'});
-      this.startTxt.anchor.setTo(0.5, 0.5);
-
-      y = y + this.titleTxt.height + 30;
-
-      this.myButton = this.add.button(200, 575, 'buttonPlay', function() { this.game.state.start('menu') }, this, 1, 0, 0);*/
-
-      //this.input.onDown.add(this.onDown, this);
     },
 
     update: function () {
 
     },
 
-   /* startButton: function () {
-      this.game.state.start('highScore');
-    }*/
   };
 
   window['ndoto'] = window['ndoto'] || {};
