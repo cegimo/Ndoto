@@ -22,7 +22,8 @@
       this.load.spritesheet('buttonBack', 'assets/buttonBack.png', 234, 107);
       this.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
       this.load.image('plataformas', 'assets/plataformas.png');
-      this.load.image('player', 'assets/phaser-dude.png');
+      this.load.image('boy', 'assets/child.png');
+      this.load.image('enemy', 'assets/enemy.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
     },
 
