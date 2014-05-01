@@ -7,6 +7,7 @@
     this.highScoreTxt = null;
     this.myButton=null;
     this.credits = null;
+    this.buttonBack = null;
 
   }
 
@@ -17,6 +18,8 @@
         , y = this.game.height / 2;
 
       this.creditsBackground = this.add.sprite(0, 0, 'creditsBackground');
+
+      this.buttonBack = this.add.button(550, 500, 'buttonBack', function() { this.game.state.start('menu') }, this, 1, 0, 0);
 
       /*this.titleTxt = this.add.bitmapText(x, y, 'Credits', {font: '16px minecraftia', align: 'center'});
       this.titleTxt.anchor.setTo(0.5, 0.5);
