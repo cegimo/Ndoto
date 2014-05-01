@@ -38,6 +38,7 @@
 
     //add child whith arcade physics
     this.boy = this.add.sprite(25, 25, 'boy');
+    //this.boy.frame = 0;
     this.physics.enable(this.boy);
     this.physics.arcade.gravity.y = 200;
     this.boy.body.bounce.y = 0.2;
@@ -120,12 +121,18 @@
     //no funciona correctamente, 
     // Update the shadow texture each frame
   //  this.updateShadowTexture();
+    if(!this.cursors.right.isDown || !this.cursors.left.isDown || !this.cursors.up.isDown){
+
+      this.boy.frame = 0;
+    }
+
 
 
       this.boy.body.velocity.x = 0;
 
     if (this.cursors.up.isDown)
     {
+        this.boy.frame = 6;
         if (this.boy.body.onFloor())
         {
             this.boy.body.velocity.y = -300;
@@ -134,12 +141,16 @@
 
     if (this.cursors.left.isDown)
     {
+        this.boy.frame = 9;
         this.boy.body.velocity.x = -200;
     }
     else if (this.cursors.right.isDown)
     {
+         this.boy.frame = 1;
+
         this.boy.body.velocity.x = 200;
     }
+
 
 },
 //objeto donde se implementarán los atributos del niño según nos lo vayan pasando
