@@ -31,8 +31,9 @@
     this.spriteBoy.animations.add('stopLeft', [10], 8, true);
     this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
-    this.spriteBoy.animations.add('up', [4, 5, 6], 8, true);
+    this.spriteBoy.animations.add('up', [16, 17], 3, true);
     this.spriteBoy.animations.add('up&right', [11, 12, 13], 8, true);
+    this.spriteBoy.animations.add('atack', [20, 21], 3, true);
     
     this.animationLast = 'stop';
     
@@ -151,7 +152,12 @@
     // }
       this.spriteBoy.body.setSize(57,70,0,0);
       this.spriteBoy.body.velocity.x = 0;
-      
+    
+    //Atack
+
+    if(this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+      this.spriteBoy.animations.play('atack');
+    }  
     //Jump 
     if (this.input.keyboard.isDown(Phaser.Keyboard.UP))
     {
@@ -190,7 +196,7 @@
 
         //no funciona correctamente, 
     // Update the shadow texture each frame
-      //this.updateShadowTexture();
+      this.updateShadowTexture();
 },
 
 
