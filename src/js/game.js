@@ -31,14 +31,20 @@
     this.spriteBoy.animations.add('stopLeft', [15], 8, true);
     this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
-    this.spriteBoy.animations.add('up', [16, 17], 5, true);
+    this.spriteBoy.animations.add('upLookingRight', [16, 17], 5, false);
+    this.spriteBoy.animations.add('upLookingLeft', [19, 18], 5, false);
+    this.spriteBoy.animations.add('upAirRight', [17], 5, true);
+    this.spriteBoy.animations.add('upAirLeft', [18], 5, true);
     this.spriteBoy.animations.add('up&right', [5], 8, true);
     this.spriteBoy.animations.add('up&left', [12], 8, true);
     this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
     this.spriteBoy.animations.add('atackLeft', [23, 22], 3, true);
+    this.spriteBoy.animations.add('boyDieRight', [24, 25, 26], 7, true);
+    this.spriteBoy.animations.add('boyDieLeft', [29, 28, 27], 7, false);
     
     this.animationLast = 'stopRight';
     
+
       
     // Create the shadow texture
     this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
@@ -123,20 +129,26 @@
         if( (this.enemys[i].enemyDir) && ( this.enemys[i].enemyX + this.enemys[i].enemyMove > this.enemys[i].enemySprite.body.x ) )
         {
           this.enemys[i].enemySprite.body.x += 1;
-          this.enemys[i].enemySprite.frame = 0;
+
+          
+           //this.enemys[i].enemySprite.frame = 0;
+          
         }
         else
         {
+          this.spriteEnemy.animations.play('enemyRight');
           this.enemys[i].enemyDir = false;
+          
         }
         //left
         if((!this.enemys[i].enemyDir) && ( this.enemys[i].enemyX - this.enemys[i].enemyMove < this.enemys[i].enemySprite.body.x ))
           {
             this.enemys[i].enemySprite.body.x -= 1;
-            this.enemys[i].enemySprite.frame = 6;
+
           }
           else
           {
+            this.spriteEnemy.animations.play('enemyLeft');
             this.enemys[i].enemyDir = true;
           }
       }
@@ -175,11 +187,24 @@
     {
       
       //this.animationLast = 'stopLeft';
-        if (this.spriteBoy.body.onFloor())
+        if (this.spriteBoy.body.onFloor() && this.animationLast === 'stopRight')
         {
-            this.spriteBoy.animations.play('up');
+            this.spriteBoy.animations.play('upLookingRight');
             this.spriteBoy.body.velocity.y = -280;
+        } else if (this.spriteBoy.body.onFloor() && this.animationLast === 'stopLeft')
+          {
+            this.spriteBoy.animations.play('upLookingLeft');
+            this.spriteBoy.body.velocity.y = -280;
+          }
+
+        if(!this.spriteBoy.body.onFloor() && this.animationLast === 'stopRight')
+        {
+            this.spriteBoy.animations.play('upAirRight');
+        }else if(!this.spriteBoy.body.onFloor() && this.animationLast === 'stopLeft'){
+            this.spriteBoy.animations.play('upAirLeft');
         }
+
+            
     }
   
     // If  the player press two keys at the same time
@@ -196,9 +221,9 @@
            this.animationLast = 'stopLeft';
            this.spriteBoy.body.velocity.x = -200;
         } else{
-          this.spriteBoy.animations.play('up&left');
-          this.animationLast = 'stopLeft';
-          this.spriteBoy.body.velocity.x = -140;
+           this.spriteBoy.animations.play('up&left');
+           this.animationLast = 'stopLeft';
+           this.spriteBoy.body.velocity.x = -140;
           }
       
     }
@@ -211,10 +236,14 @@
            this.animationLast = 'stopRight';
            this.spriteBoy.body.velocity.x = 200;
         } else{
-          this.spriteBoy.animations.play('up&right');
-          this.animationLast = 'stopRight';
-          this.spriteBoy.body.velocity.x = 140;
+           this.spriteBoy.animations.play('up&right');
+           this.animationLast = 'stopRight';
+           this.spriteBoy.body.velocity.x = 140;
           }
+    }
+    else if(this.input.keyboard.isDown(Phaser.Keyboard.S)){
+      this.spriteBoy.animations.play('boyDieRight');
+
     }
     // Update the shadow texture each frame
      // this.updateShadowTexture();
@@ -223,7 +252,12 @@
 boyDead: function(){ 
       this.spriteBoy.body.x = 25;
       this.spriteBoy.body.y = 750;
-    },
+    if(this.animationLast === 'stopRight'){
+      this.spriteBoy.animations.play('boyDieRight');
+    }else if(this.animationLast === 'stopLeft'){
+      this.spriteBoy.animations.play('boyDieLeft');
+    }
+},
 //objeto donde se implementarán los atributos del niño según nos lo vayan pasando
 boyPlayer: function(lives, weapon, sprite){ 
       this.lives = lives;
@@ -242,6 +276,9 @@ newEnemy: function(posX, posY, range){
     this.spriteEnemy = this.add.sprite(posX, posY, 'enemy');
     this.enemys.unshift(new this.enemyNode( 3, this.spriteEnemy, posX, range));
     this.physics.enable(this.enemys[0].enemySprite);
+    this.spriteEnemy.animations.add('enemyDie', [9, 10, 11, 12], 8, true);
+    this.spriteEnemy.animations.add('enemyLeft', [0, 1, 2, 3, 4], 8, true);
+    this.spriteEnemy.animations.add('enemyRight', [8, 7, 6, 5], 8, true);
     },
 
   //nodo  s de la lista de enemigos
