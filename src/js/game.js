@@ -97,7 +97,7 @@
         {
 
           this.enemys[i].enemySprite.body.x += 1;
-           this.enemys.frame = 3;
+           //this.spriteEnemy.frame = 3;
 
         }
         else
@@ -108,7 +108,7 @@
           {
             
             this.enemys[i].enemySprite.body.x -= 1;
-            this.enemys.frame = 7;
+            //this.spriteEnemy.frame = 6;
           }
           else
           {
