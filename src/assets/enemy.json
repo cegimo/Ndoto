@@ -1,7 +1,6 @@
 { 
 "enemys": [
 { "posX":1055 , "posY":655 , "range":100},
-{ "posX":780 , "posY":285 , "range":100},
-{ "posX":150 , "posY":600 , "range":100}
+{ "posX":600 , "posY":655 , "range":100}
  ]
 }

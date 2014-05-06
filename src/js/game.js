@@ -16,7 +16,7 @@
     this.spriteEnemy = null;
     this.enemyData = null;
     this.animationLast = null; //last animation registered
-
+    this.weapon = null;
   }
 
   Game.prototype = {
@@ -86,11 +86,16 @@
     this.spriteBoy.body.collideWorldBounds = false;
     this.camera.follow(this.spriteBoy);
 
+      this.weapon = this.add.sprite(this.spriteBoy.x + 50,this.spriteBoy.y ,'');
+      this.physics.enable(this.weapon);
+     //Caracteristicas arma, ataque principal
+      this.weapon.body.collideWorldBounds = true;
+      this.weapon.body.drag.setTo(600, 0);
+      this.weapon.body.setSize(30,30,0,0);
+
     //add cursors
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    //circulo de luz, por ahora no funciona correctamente con los tilemap, mirar por qué
-    
     // The radius of the circle of light
     this.LIGHT_RADIUS = 200;
 
@@ -98,10 +103,12 @@
 
     update: function () {
 
-
+        //Movimiento arma
+      this.weapon.y = this.spriteBoy.y+1 ;
+      this.weapon.x = this.spriteBoy.x + 50;
+      console.log (this.weapon.y);
 
       this.physics.arcade.collide(this.spriteBoy, this.layer);
-      //this.physics.arcade.collide(this.enemys[i].enemySprite, this.spriteBoy);
 
       //enemys
       for (var i = 0, l = this.enemys.length; i < l; i++)
@@ -116,10 +123,7 @@
         if( (this.enemys[i].enemyDir) && ( this.enemys[i].enemyX + this.enemys[i].enemyMove > this.enemys[i].enemySprite.body.x ) )
         {
           this.enemys[i].enemySprite.body.x += 1;
-
-          
-           this.enemys[i].enemySprite.frame = 0;
-
+          this.enemys[i].enemySprite.frame = 0;
         }
         else
         {
@@ -128,9 +132,7 @@
         //left
         if((!this.enemys[i].enemyDir) && ( this.enemys[i].enemyX - this.enemys[i].enemyMove < this.enemys[i].enemySprite.body.x ))
           {
-            
             this.enemys[i].enemySprite.body.x -= 1;
-
             this.enemys[i].enemySprite.frame = 6;
           }
           else
@@ -139,15 +141,11 @@
           }
       }
       //out of bounds, boy is dead
-      if ((this.spriteBoy.body.y > 1200) || (this.spriteBoy.body.x < -60))
+      if ((this.spriteBoy.body.y > 1200) || (this.spriteBoy.body.x < -30))
       {
         this.boyDead();
       }
-
-      
-
     //Boy movement
-
     //this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
 
     if (!this.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !this.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !this.input.keyboard.isDown(Phaser.Keyboard.UP) && !this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
@@ -288,6 +286,7 @@ updateShadowTexture: function(){
 render: function(){
 
     this.game.debug.body(this.spriteBoy);
+    this.game.debug.body(this.weapon);
     for (var i = 0; i < this.enemys.length; i++){
        this.game.debug.body(this.enemys[i].enemySprite);
     }
