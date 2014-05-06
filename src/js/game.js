@@ -22,6 +22,18 @@
 
     create: function () {
 
+
+    // Create the shadow texture
+    this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
+
+    // Create an object that will use the bitmap as a texture
+    var lightSprite = this.game.add.image(0, 0, this.shadowTexture);
+    lightSprite.fixedToCamera = true;
+
+    // Set the blend mode to MULTIPLY. This will darken the colors of
+    // everything below this sprite.
+    lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.stage.backgroundColor = '#FFFFFF';
     //add tilemap
@@ -46,10 +58,7 @@
       this.newEnemy(this.enemyData[i].posX, this.enemyData[i].posY, this.enemyData[i].range);
     }
 
-    /*//add child whith arcade physics
-    this.boy = this.add.sprite(25, 25, 'boy');*/
-
-    //this.boy.frame = 0;
+    //add physics boy
     this.physics.enable(this.boy.spriteBoy);
     this.physics.arcade.gravity.y = 200;
     this.boy.spriteBoy.body.bounce.y = 0.2;
@@ -60,25 +69,15 @@
     //add cursors
     this.cursors = this.input.keyboard.createCursorKeys();
 
-
     //circulo de luz, por ahora no funciona correctamente con los tilemap, mirar por qué
-    /*
+    
     // The radius of the circle of light
-    this.LIGHT_RADIUS = 300;
+    this.LIGHT_RADIUS = 400;
 
-
-    // Create the shadow texture
-    this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
-
-    // Create an object that will use the bitmap as a texture
-    var lightSprite = this.game.add.image(0, 0, this.shadowTexture);
-
-    // Set the blend mode to MULTIPLY. This will darken the colors of
-    // everything below this sprite.
-    lightSprite.blendMode = Phaser.blendModes.MULTIPLY;*/
     },
 
     update: function () {
+
       this.physics.arcade.collide(this.boy.spriteBoy, this.layer);
 
       //enemys
@@ -121,15 +120,11 @@
 
       //enemys move
 
-    //no funciona correctamente, 
-    // Update the shadow texture each frame
-  //  this.updateShadowTexture();
+
     if(!this.cursors.right.isDown || !this.cursors.left.isDown || !this.cursors.up.isDown){
 
       this.boy.spriteBoy.frame = 0;
     }
-
-
       this.boy.spriteBoy.body.setSize(84,120,0,0);
       this.boy.spriteBoy.body.velocity.x = 0;
 
@@ -154,7 +149,9 @@
         this.boy.spriteBoy.body.velocity.x = 200;
     }
 
-
+        //no funciona correctamente, 
+    // Update the shadow texture each frame
+      this.updateShadowTexture();
 },
 
 
@@ -185,15 +182,28 @@ enemyNode: function(hits, sprite, x, pixelMove)
 
 //no funciona bien con tilemaps, buscar errores
 updateShadowTexture: function(){
+    var spotX = this.boy.spriteBoy.body.x - this.game.camera.view.x;
+    var spotY = this.boy.spriteBoy.body.y  - this.game.camera.view.y;
   // Draw shadow
-    this.shadowTexture.context.fillStyle = 'rgb(1, 1, 1)';
-    this.shadowTexture.context.fillRect(0, 0, this.width, this.height);
+    this.shadowTexture.context.fillStyle = 'rgb(0,0,0)';
+    this.shadowTexture.context.fillRect(0, 0, this.game.world.width, this.game.world.height);
+
+    //gradient
+    var gradient = this.shadowTexture.context.createRadialGradient(
+        spotX, spotY, this.LIGHT_RADIUS * 0.80,
+        spotX, spotY, this.LIGHT_RADIUS);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
     // Draw circle of light
     this.shadowTexture.context.beginPath();
-    this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
-    this.shadowTexture.context.arc(this.p.x, this.p.y,
-        this.LIGHT_RADIUS, 0, Math.PI*2);
+   // this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
+        this.shadowTexture.context.fillStyle = gradient;
+    this.shadowTexture.context.arc(spotX, spotY,
+      this.LIGHT_RADIUS, 0, Math.PI*2);
+    console.log(this.boy.spriteBoy)
+    /*this.shadowTexture.context.arc(this.boy.spriteBoy.body.x, this.boy.spriteBoy.body.y,
+        this.LIGHT_RADIUS, 0, Math.PI*2);*/
     this.shadowTexture.context.fill();
 
     // This just tells the engine it should update the texture cache
