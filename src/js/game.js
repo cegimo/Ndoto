@@ -14,6 +14,7 @@
     this.enemys = [];
     this.enemySprite = null;
     this.spriteEnemy = null;
+    this.enemyData = null;
 
   }
 
@@ -37,8 +38,17 @@
     this.layer.resizeWorld();
     this.player = new this.boyPlayer(3,'sword');
 
+    //add enemy whith json
+    this.cache._text['enemyData'].data = JSON.parse(this.cache.getText('enemyData'));
+    this.enemyData = this.cache.getText('enemyData').enemys;
+    for (var i = 0, l = this.enemyData.length; i < l; i++)
+    {
+      this.newEnemy(this.enemyData[i].posX, this.enemyData[i].posY, this.enemyData[i].range);
+    }
+
     //add child whith arcade physics
     this.boy = this.add.sprite(25, 25, 'boy');
+
     //this.boy.frame = 0;
     this.physics.enable(this.boy);
     this.physics.arcade.gravity.y = 200;
@@ -59,8 +69,8 @@
     this.physics.enable(this.enemys[1].enemySprite);*/
 
 
-    this.newEnemy(1055,656,100);
-    this.newEnemy(782,285,100);
+    /*this.newEnemy(1055,656,100);
+    this.newEnemy(782,285,100);*/
     
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -86,10 +96,8 @@
     update: function () {
       this.physics.arcade.collide(this.boy, this.layer);
 
-      console.log('x'+this.boy.body.x);
-      console.log(this.boy.body.y);
       //enemys
-      for (var i = 0; i < this.enemys.length; i++)
+      for (var i = 0, l = this.enemys.length; i < l; i++)
       {
         this.physics.arcade.collide(this.enemys[i].enemySprite, this.layer);
         //enemys move
