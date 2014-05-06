@@ -57,22 +57,7 @@
     this.boy.body.collideWorldBounds = false;
     this.camera.follow(this.boy);
 
-
-      //por ahora solo meto 2. Hay que crear una funcion para que los cree automaticamente según los parametros que nos indiquen
-      //add enemys
-    /*this.spriteEnemy = this.add.sprite(1055, 656, 'enemy');
-    this.enemys.push(new this.enemyNode( 3, this.spriteEnemy, 1055, 100));
-    this.physics.enable(this.enemys[0].enemySprite);
-
-    this.spriteEnemy = this.add.sprite(782, 285, 'enemy');
-    this.enemys.push(new this.enemyNode( 3, this.spriteEnemy, 782, 100));
-    this.physics.enable(this.enemys[1].enemySprite);*/
-
-
-    /*this.newEnemy(1055,656,100);
-    this.newEnemy(782,285,100);*/
-    
-
+    //add cursors
     this.cursors = this.input.keyboard.createCursorKeys();
 
 
@@ -101,9 +86,9 @@
       {
         this.physics.arcade.collide(this.enemys[i].enemySprite, this.layer);
         //enemys move
+        //right
         if( (this.enemys[i].enemyDir) && ( this.enemys[i].enemyX + this.enemys[i].enemyMove > this.enemys[i].enemySprite.body.x ) )
         {
-
           this.enemys[i].enemySprite.body.x += 1;
            this.enemys[i].enemySprite.frame = 6;
 
@@ -112,6 +97,7 @@
         {
           this.enemys[i].enemyDir = false;
         }
+        //left
         if((!this.enemys[i].enemyDir) && ( this.enemys[i].enemyX - this.enemys[i].enemyMove < this.enemys[i].enemySprite.body.x ))
           {
             
@@ -122,9 +108,8 @@
           {
             this.enemys[i].enemyDir = true;
           }
-
       }
-
+      //boy dead, reset in pos(25,25)
       if ((this.boy.body.y > 900) || (this.boy.body.x < -60))
       {
         this.boy.body.x = 25;
