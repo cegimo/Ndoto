@@ -49,13 +49,17 @@
 
       //por ahora solo meto 2. Hay que crear una funcion para que los cree automaticamente según los parametros que nos indiquen
       //add enemys
-    this.spriteEnemy = this.add.sprite(1055, 656, 'enemy');
+    /*this.spriteEnemy = this.add.sprite(1055, 656, 'enemy');
     this.enemys.push(new this.enemyNode( 3, this.spriteEnemy, 1055, 100));
     this.physics.enable(this.enemys[0].enemySprite);
 
     this.spriteEnemy = this.add.sprite(782, 285, 'enemy');
     this.enemys.push(new this.enemyNode( 3, this.spriteEnemy, 782, 100));
-    this.physics.enable(this.enemys[1].enemySprite);
+    this.physics.enable(this.enemys[1].enemySprite);*/
+
+
+    this.newEnemy(1055,656,100);
+    this.newEnemy(782,285,100);
     
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -157,8 +161,16 @@
 boyPlayer: function(lives, weapon){ 
       this.lives = lives;
       this.weapon = weapon;
-      console.log(this.lives+' '+this.weapon); 
+      //console.log(this.lives+' '+this.weapon); 
     },
+
+  //create enemy
+newEnemy: function(posX, posY, range){ 
+    this.spriteEnemy = this.add.sprite(posX, posY, 'enemy');
+    this.enemys.unshift(new this.enemyNode( 3, this.spriteEnemy, posX, range));
+    this.physics.enable(this.enemys[0].enemySprite);
+    },
+
   //nodos de la lista de enemigos
 enemyNode: function(hits, sprite, x, pixelMove)
 {
