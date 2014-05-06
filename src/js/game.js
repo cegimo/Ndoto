@@ -36,7 +36,7 @@
     this.map.setCollision(32);
     this.layer = this.map.createLayer('plataformas');
     this.layer.resizeWorld();
-    this.player = new this.boyPlayer(3,'sword');
+    this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
 
     //add enemy whith json
     this.cache._text['enemyData'].data = JSON.parse(this.cache.getText('enemyData'));
@@ -46,16 +46,16 @@
       this.newEnemy(this.enemyData[i].posX, this.enemyData[i].posY, this.enemyData[i].range);
     }
 
-    //add child whith arcade physics
-    this.boy = this.add.sprite(25, 25, 'boy');
+    /*//add child whith arcade physics
+    this.boy = this.add.sprite(25, 25, 'boy');*/
 
     //this.boy.frame = 0;
-    this.physics.enable(this.boy);
+    this.physics.enable(this.boy.spriteBoy);
     this.physics.arcade.gravity.y = 200;
-    this.boy.body.bounce.y = 0.2;
-    this.boy.body.linearDamping = 1;
-    this.boy.body.collideWorldBounds = false;
-    this.camera.follow(this.boy);
+    this.boy.spriteBoy.body.bounce.y = 0.2;
+    this.boy.spriteBoy.body.linearDamping = 1;
+    this.boy.spriteBoy.body.collideWorldBounds = false;
+    this.camera.follow(this.boy.spriteBoy);
 
     //add cursors
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -79,7 +79,7 @@
     },
 
     update: function () {
-      this.physics.arcade.collide(this.boy, this.layer);
+      this.physics.arcade.collide(this.boy.spriteBoy, this.layer);
 
       //enemys
       for (var i = 0, l = this.enemys.length; i < l; i++)
@@ -113,10 +113,10 @@
           }
       }
       //boy dead, reset in pos(25,25)
-      if ((this.boy.body.y > 900) || (this.boy.body.x < -60))
+      if ((this.boy.spriteBoy.body.y > 900) || (this.boy.spriteBoy.body.x < -60))
       {
-        this.boy.body.x = 25;
-        this.boy.body.y = 25;
+        this.boy.spriteBoy.body.x = 25;
+        this.boy.spriteBoy.body.y = 25;
       }
 
       //enemys move
@@ -126,40 +126,43 @@
   //  this.updateShadowTexture();
     if(!this.cursors.right.isDown || !this.cursors.left.isDown || !this.cursors.up.isDown){
 
-      this.boy.frame = 0;
+      this.boy.spriteBoy.frame = 0;
     }
 
 
-      this.boy.body.setSize(84,120,0,0);
-      this.boy.body.velocity.x = 0;
+      this.boy.spriteBoy.body.setSize(84,120,0,0);
+      this.boy.spriteBoy.body.velocity.x = 0;
 
     if (this.cursors.up.isDown)
     {
-        this.boy.frame = 6;
-        if (this.boy.body.onFloor())
+        this.boy.spriteBoy.frame = 6;
+        if (this.boy.spriteBoy.body.onFloor())
         {
-            this.boy.body.velocity.y = -300;
+            this.boy.spriteBoy.body.velocity.y = -300;
         }
     }
 
     if (this.cursors.left.isDown)
     {
-        this.boy.frame = 9;
-        this.boy.body.velocity.x = -200;
+        this.boy.spriteBoy.frame = 9;
+        this.boy.spriteBoy.body.velocity.x = -200;
     }
     else if (this.cursors.right.isDown)
     {
-         this.boy.frame = 1;
+         this.boy.spriteBoy.frame = 1;
 
-        this.boy.body.velocity.x = 200;
+        this.boy.spriteBoy.body.velocity.x = 200;
     }
 
 
 },
+
+
 //objeto donde se implementarán los atributos del niño según nos lo vayan pasando
-boyPlayer: function(lives, weapon){ 
+boyPlayer: function(lives, weapon, sprite){ 
       this.lives = lives;
       this.weapon = weapon;
+      this.spriteBoy = sprite;
       //console.log(this.lives+' '+this.weapon); 
     },
 
@@ -198,7 +201,7 @@ updateShadowTexture: function(){
 },
 render: function(){
 
-    this.game.debug.body(this.boy);
+    this.game.debug.body(this.boy.spriteBoy);
     for (var i = 0; i < this.enemys.length; i++){
        this.game.debug.body(this.enemys[i].enemySprite);
     }
