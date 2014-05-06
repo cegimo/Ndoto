@@ -190,7 +190,7 @@
 
         //no funciona correctamente, 
     // Update the shadow texture each frame
-      this.updateShadowTexture();
+      //this.updateShadowTexture();
 },
 
 
