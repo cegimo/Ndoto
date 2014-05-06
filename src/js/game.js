@@ -90,7 +90,9 @@
         if( (this.enemys[i].enemyDir) && ( this.enemys[i].enemyX + this.enemys[i].enemyMove > this.enemys[i].enemySprite.body.x ) )
         {
           this.enemys[i].enemySprite.body.x += 1;
-           this.enemys[i].enemySprite.frame = 6;
+
+          
+           this.enemys[i].enemySprite.frame = 0;
 
         }
         else
@@ -102,7 +104,8 @@
           {
             
             this.enemys[i].enemySprite.body.x -= 1;
-            this.enemys[i].enemySprite.frame = 5;
+
+            this.enemys[i].enemySprite.frame = 6;
           }
           else
           {
@@ -127,7 +130,7 @@
     }
 
 
-
+      this.boy.body.setSize(84,120,0,0);
       this.boy.body.velocity.x = 0;
 
     if (this.cursors.up.isDown)
@@ -192,7 +195,16 @@ updateShadowTexture: function(){
 
     // This just tells the engine it should update the texture cache
     this.shadowTexture.dirty = true;
+},
+render: function(){
+
+    this.game.debug.body(this.boy);
+    for (var i = 0; i < this.enemys.length; i++){
+       this.game.debug.body(this.enemys[i].enemySprite);
+    }
+
 }
+
   };
 
   window['ndoto'] = window['ndoto'] || {};
