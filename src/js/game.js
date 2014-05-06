@@ -14,6 +14,7 @@
     this.enemys = [];
     this.enemySprite = null;
     this.spriteEnemy = null;
+
   }
 
   Game.prototype = {
@@ -96,6 +97,7 @@
         {
 
           this.enemys[i].enemySprite.body.x += 1;
+           this.enemys.frame = 3;
 
         }
         else
@@ -106,6 +108,7 @@
           {
             
             this.enemys[i].enemySprite.body.x -= 1;
+            this.enemys.frame = 7;
           }
           else
           {
