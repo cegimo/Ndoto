@@ -22,8 +22,11 @@
       this.load.spritesheet('enemy', 'assets/enemy1moving.png', 105, 71);
       this.load.spritesheet('buttonCredits', 'assets/buttonCredits.png', 278, 127);
       this.load.spritesheet('buttonBack', 'assets/buttonBack.png', 234, 107);
-      this.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
+      
+
       this.load.text('enemyData', 'assets/enemy.json');
+      //map
+      this.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
       this.load.image('plataformas', 'assets/plataformas.png');
       //this.load.image('boy1', 'assets/child.png');
       this.load.image('boyLeft', 'assets/boyleft.png');
