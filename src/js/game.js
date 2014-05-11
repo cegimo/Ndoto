@@ -84,6 +84,7 @@
       for (var i = 0, l = this.enemys.length; i < l; i++)
       {
         this.physics.arcade.collide(this.enemys[i].enemySprite, this.layer);
+        this.enemys[i].enemySprite.body.setSize(80,70,0,0);
         //enemys move
         //right
         if( (this.enemys[i].enemyDir) && ( this.enemys[i].enemyX + this.enemys[i].enemyMove > this.enemys[i].enemySprite.body.x ) )
@@ -125,7 +126,7 @@
 
       this.boy.spriteBoy.frame = 0;
     }
-      this.boy.spriteBoy.body.setSize(84,120,0,0);
+      this.boy.spriteBoy.body.setSize(57,70,0,0);
       this.boy.spriteBoy.body.velocity.x = 0;
 
     if (this.cursors.up.isDown)
