@@ -39,14 +39,14 @@
     //add tilemap
     this.map = this.add.tilemap('map');
     this.map.addTilesetImage('plataformas');
-    this.map.setCollisionBetween(1, 12);
-    this.map.setCollisionBetween(15, 16);
-    this.map.setCollisionBetween(25, 28);
-    this.map.setCollisionBetween(44, 46);
-    this.map.setCollisionBetween(73, 75);
-    this.map.setCollisionBetween(55, 57);
-    this.map.setCollision(32);
-    this.layer = this.map.createLayer('plataformas');
+    this.map.setCollisionBetween(0, 5);
+    // this.map.setCollision(7);
+    this.map.setCollisionBetween( 8, 10);
+    this.map.setCollisionBetween(27, 28);
+    this.map.setCollisionBetween(40, 45);
+    this.map.setCollisionBetween(56, 58);
+      
+    this.layer = this.map.createLayer('Capa de Patrones 1');
     this.layer.resizeWorld();
     this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
 
