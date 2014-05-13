@@ -22,7 +22,11 @@
 
     create: function () {
 
-
+    //Set animations for player and enemys
+    this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
+    
+    //this.boy.animations.add('jump', [4], 20, true);
+    //this.boy.animations.add('left', [5, 6, 7, 8], 4, true);
     // Create the shadow texture
     this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
 
@@ -48,7 +52,7 @@
       
     this.layer = this.map.createLayer('Capa de Patrones 1');
     this.layer.resizeWorld();
-    this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
+    
 
     //add enemy whith json
     this.cache._text['enemyData'].data = JSON.parse(this.cache.getText('enemyData'));
@@ -72,7 +76,7 @@
     //circulo de luz, por ahora no funciona correctamente con los tilemap, mirar por qué
     
     // The radius of the circle of light
-    this.LIGHT_RADIUS = 400;
+    this.LIGHT_RADIUS = 200;
 
     },
 
@@ -119,7 +123,9 @@
         this.boy.spriteBoy.body.y = 25;
       }
 
-      //enemys move
+      
+
+    //boy movement 
 
 
     if(!this.cursors.right.isDown || !this.cursors.left.isDown || !this.cursors.up.isDown){
@@ -131,7 +137,7 @@
 
     if (this.cursors.up.isDown)
     {
-        this.boy.spriteBoy.frame = 6;
+        this.boy.animationRight.play('jump');
         if (this.boy.spriteBoy.body.onFloor())
         {
             this.boy.spriteBoy.body.velocity.y = -300;
@@ -140,13 +146,13 @@
 
     if (this.cursors.left.isDown)
     {
-        this.boy.spriteBoy.frame = 9;
+        this.boy.animationLeft.play('left');
         this.boy.spriteBoy.body.velocity.x = -200;
     }
     else if (this.cursors.right.isDown)
     {
-         this.boy.spriteBoy.frame = 1;
-
+         
+         this.boy.animationRight.play('right');
         this.boy.spriteBoy.body.velocity.x = 200;
     }
 
@@ -161,6 +167,9 @@ boyPlayer: function(lives, weapon, sprite){
       this.lives = lives;
       this.weapon = weapon;
       this.spriteBoy = sprite;
+      this.animationRight = this.spriteBoy.animations.add('right', [3, 1, 2], 10, true);
+      this.animationLeft = this.spriteBoy.animations.add('left', [10, 9, 8], 8, true);
+      this.animationJump = this.spriteBoy.animations.add('jump', [4, 5, 6], 8, true);
       //console.log(this.lives+' '+this.weapon); 
     },
 
