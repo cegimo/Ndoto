@@ -23,10 +23,11 @@
     create: function () {
 
     //Set animations for player and enemys
-    this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
-    
+    //this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
+    this.spriteBoy = this.add.sprite( 25, 25, 'boy');
     //this.boy.animations.add('jump', [4], 20, true);
-    //this.boy.animations.add('left', [5, 6, 7, 8], 4, true);
+    this.spriteBoy.animations.add('left', [10, 9, 8], 8, true);
+      
     // Create the shadow texture
     this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
 
@@ -63,12 +64,12 @@
     }
 
     //add physics boy
-    this.physics.enable(this.boy.spriteBoy);
+    this.physics.enable(this.spriteBoy);
     this.physics.arcade.gravity.y = 200;
-    this.boy.spriteBoy.body.bounce.y = 0.2;
-    this.boy.spriteBoy.body.linearDamping = 1;
-    this.boy.spriteBoy.body.collideWorldBounds = false;
-    this.camera.follow(this.boy.spriteBoy);
+    this.spriteBoy.body.bounce.y = 0.2;
+    this.spriteBoy.body.linearDamping = 1;
+    this.spriteBoy.body.collideWorldBounds = false;
+    this.camera.follow(this.spriteBoy);
 
     //add cursors
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -82,7 +83,9 @@
 
     update: function () {
 
-      this.physics.arcade.collide(this.boy.spriteBoy, this.layer);
+
+
+      this.physics.arcade.collide(this.spriteBoy, this.layer);
 
       //enemys
       for (var i = 0, l = this.enemys.length; i < l; i++)
@@ -117,10 +120,10 @@
           }
       }
       //boy dead, reset in pos(25,25)
-      if ((this.boy.spriteBoy.body.y > 900) || (this.boy.spriteBoy.body.x < -60))
+      if ((this.spriteBoy.body.y > 900) || (this.spriteBoy.body.x < -60))
       {
-        this.boy.spriteBoy.body.x = 25;
-        this.boy.spriteBoy.body.y = 25;
+        this.spriteBoy.body.x = 25;
+        this.spriteBoy.body.y = 25;
       }
 
       
@@ -130,30 +133,27 @@
 
     if(!this.cursors.right.isDown || !this.cursors.left.isDown || !this.cursors.up.isDown){
 
-      this.boy.spriteBoy.frame = 0;
+      this.spriteBoy.frame = 0;
     }
-      this.boy.spriteBoy.body.setSize(57,70,0,0);
-      this.boy.spriteBoy.body.velocity.x = 0;
+      this.spriteBoy.body.setSize(57,70,0,0);
+      this.spriteBoy.body.velocity.x = 0;
 
     if (this.cursors.up.isDown)
     {
-        this.boy.animationRight.play('jump');
-        if (this.boy.spriteBoy.body.onFloor())
+        if (this.spriteBoy.body.onFloor())
         {
-            this.boy.spriteBoy.body.velocity.y = -300;
+            this.spriteBoy.body.velocity.y = -300;
         }
     }
 
     if (this.cursors.left.isDown)
     {
-        this.boy.animationLeft.play('left');
-        this.boy.spriteBoy.body.velocity.x = -200;
+        this.spriteBoy.animations.play('left');
+        this.spriteBoy.body.velocity.x = -200;
     }
     else if (this.cursors.right.isDown)
-    {
-         
-         this.boy.animationRight.play('right');
-        this.boy.spriteBoy.body.velocity.x = 200;
+    {         
+        this.spriteBoy.body.velocity.x = 200;
     }
 
         //no funciona correctamente, 
@@ -167,9 +167,11 @@ boyPlayer: function(lives, weapon, sprite){
       this.lives = lives;
       this.weapon = weapon;
       this.spriteBoy = sprite;
+      /*
       this.animationRight = this.spriteBoy.animations.add('right', [3, 1, 2], 10, true);
       this.animationLeft = this.spriteBoy.animations.add('left', [10, 9, 8], 8, true);
       this.animationJump = this.spriteBoy.animations.add('jump', [4, 5, 6], 8, true);
+      */
       //console.log(this.lives+' '+this.weapon); 
     },
 
@@ -180,7 +182,7 @@ newEnemy: function(posX, posY, range){
     this.physics.enable(this.enemys[0].enemySprite);
     },
 
-  //nodos de la lista de enemigos
+  //nodo  s de la lista de enemigos
 enemyNode: function(hits, sprite, x, pixelMove)
 {
     this.hits = hits;
@@ -192,8 +194,8 @@ enemyNode: function(hits, sprite, x, pixelMove)
 
 //no funciona bien con tilemaps, buscar errores
 updateShadowTexture: function(){
-    var spotX = this.boy.spriteBoy.body.x - this.game.camera.view.x;
-    var spotY = this.boy.spriteBoy.body.y  - this.game.camera.view.y;
+    var spotX = this.spriteBoy.body.x - this.game.camera.view.x;
+    var spotY = this.spriteBoy.body.y  - this.game.camera.view.y;
   // Draw shadow
     this.shadowTexture.context.fillStyle = 'rgb(0,0,0)';
     this.shadowTexture.context.fillRect(0, 0, this.game.world.width, this.game.world.height);
@@ -211,7 +213,7 @@ updateShadowTexture: function(){
         this.shadowTexture.context.fillStyle = gradient;
     this.shadowTexture.context.arc(spotX, spotY,
       this.LIGHT_RADIUS, 0, Math.PI*2);
-    console.log(this.boy.spriteBoy)
+
     /*this.shadowTexture.context.arc(this.boy.spriteBoy.body.x, this.boy.spriteBoy.body.y,
         this.LIGHT_RADIUS, 0, Math.PI*2);*/
     this.shadowTexture.context.fill();
@@ -221,7 +223,7 @@ updateShadowTexture: function(){
 },
 render: function(){
 
-    this.game.debug.body(this.boy.spriteBoy);
+    this.game.debug.body(this.spriteBoy);
     for (var i = 0; i < this.enemys.length; i++){
        this.game.debug.body(this.enemys[i].enemySprite);
     }
