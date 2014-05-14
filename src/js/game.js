@@ -15,6 +15,7 @@
     this.enemySprite = null;
     this.spriteEnemy = null;
     this.enemyData = null;
+    this.animationLast = null; //last animation registered
 
   }
 
@@ -25,8 +26,16 @@
     //Set animations for player and enemys
     //this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
     this.spriteBoy = this.add.sprite( 25, 25, 'boy');
-    //this.boy.animations.add('jump', [4], 20, true);
-    this.spriteBoy.animations.add('left', [10, 9, 8], 8, true);
+    //Boy animations
+    this.spriteBoy.animations.add('left', [8, 9, 10], 8, true);
+    this.spriteBoy.animations.add('stopLeft', [10], 8, true);
+    this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
+    this.spriteBoy.animations.add('stopRight', [0], 8, true);
+    this.spriteBoy.animations.add('up', [4, 5, 6], 8, true);
+    this.spriteBoy.animations.add('up&right', [11, 12, 13], 8, true);
+    
+    this.animationLast = 'stop';
+    
       
     // Create the shadow texture
     this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
@@ -128,31 +137,54 @@
 
       
 
-    //boy movement 
+    //Boy movement
 
+    //this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
 
-    if(!this.cursors.right.isDown || !this.cursors.left.isDown || !this.cursors.up.isDown){
-
-      this.spriteBoy.frame = 0;
+    if (!this.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !this.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !this.input.keyboard.isDown(Phaser.Keyboard.UP) && !this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+      this.spriteBoy.animations.play(this.animationLast);
     }
+    // else if(this.cursors.right.isDown || this.cursors.left.isDown || this.cursors.up.isDown){
+
+    //   // this.spriteBoy.frame = 0;
+    //   // this.spriteBoy.animations.stop();
+    // }
       this.spriteBoy.body.setSize(57,70,0,0);
       this.spriteBoy.body.velocity.x = 0;
-
-    if (this.cursors.up.isDown)
+      
+    //Jump 
+    if (this.input.keyboard.isDown(Phaser.Keyboard.UP))
     {
+      this.spriteBoy.animations.play('up');
+      this.animationLast = 'stopLeft';
         if (this.spriteBoy.body.onFloor())
         {
             this.spriteBoy.body.velocity.y = -300;
         }
     }
-
-    if (this.cursors.left.isDown)
+    // Jump to the right
+    if (this.input.keyboard.isDown(Phaser.Keyboard.UP) && this.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
+      this.spriteBoy.animations.play('up&right');
+      }
+    // If  the player press two keys at the same time
+    if(this.input.keyboard.isDown(Phaser.Keyboard.LEFT) && this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+         this.spriteBoy.body.velocity.x = 0;
+         this.spriteBoy.animations.play(this.animationLast);
+    }
+    //Turn left
+    else if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    {
+        console.log(this.cursors.left.isDown);
         this.spriteBoy.animations.play('left');
+        this.animationLast = 'stopLeft';
         this.spriteBoy.body.velocity.x = -200;
     }
-    else if (this.cursors.right.isDown)
+    //Turn right
+    else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {         
+        this.spriteBoy.animations.play('right');
+        this.animationLast = 'stopRight'; 
         this.spriteBoy.body.velocity.x = 200;
     }
 
