@@ -32,12 +32,12 @@
     this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
     this.spriteBoy.animations.add('up', [16, 17], 5, true);
-    this.spriteBoy.animations.add('up&right', [11, 12, 13], 8, true);
-    this.spriteBoy.animations.add('up&left', [14, 13, 12, 11], 8, true);
+    this.spriteBoy.animations.add('up&right', [5], 8, true);
+    this.spriteBoy.animations.add('up&left', [12], 8, true);
     this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
     this.spriteBoy.animations.add('atackLeft', [23, 22], 3, true);
     
-    this.animationLast = 'stop';
+    this.animationLast = 'stopRight';
     
       
     // Create the shadow texture
@@ -169,37 +169,48 @@
     //Jump 
     if (this.input.keyboard.isDown(Phaser.Keyboard.UP))
     {
-      this.spriteBoy.animations.play('up');
+      
       //this.animationLast = 'stopLeft';
         if (this.spriteBoy.body.onFloor())
         {
-            this.spriteBoy.body.velocity.y = -300;
+            this.spriteBoy.animations.play('up');
+            this.spriteBoy.body.velocity.y = -280;
         }
     }
-    // Jump to the right
-    if (this.input.keyboard.isDown(Phaser.Keyboard.UP) && this.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-    {
-      this.spriteBoy.animations.play('up&right');
-      }
+  
     // If  the player press two keys at the same time
     if(this.input.keyboard.isDown(Phaser.Keyboard.LEFT) && this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
          this.spriteBoy.body.velocity.x = 0;
          this.spriteBoy.animations.play(this.animationLast);
     }
-    //Turn left
+    //Turn left & moving while the boy is in the air
     else if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-        console.log(this.cursors.left.isDown);
-        this.spriteBoy.animations.play('left');
-        this.animationLast = 'stopLeft';
-        this.spriteBoy.body.velocity.x = -200;
+          if(this.spriteBoy.body.onFloor())
+        {
+           this.spriteBoy.animations.play('left');
+           this.animationLast = 'stopLeft';
+           this.spriteBoy.body.velocity.x = -200;
+        } else{
+          this.spriteBoy.animations.play('up&left');
+          this.animationLast = 'stopLeft';
+          this.spriteBoy.body.velocity.x = -140;
+          }
+      
     }
-    //Turn right
+    //Turn right & moving while the kid is in the air 
     else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {         
-        this.spriteBoy.animations.play('right');
-        this.animationLast = 'stopRight'; 
-        this.spriteBoy.body.velocity.x = 200;
+         if(this.spriteBoy.body.onFloor())
+        {
+           this.spriteBoy.animations.play('right');
+           this.animationLast = 'stopRight';
+           this.spriteBoy.body.velocity.x = 200;
+        } else{
+          this.spriteBoy.animations.play('up&right');
+          this.animationLast = 'stopRight';
+          this.spriteBoy.body.velocity.x = 140;
+          }
     }
 
         //no funciona correctamente, 
