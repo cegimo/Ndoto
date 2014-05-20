@@ -56,12 +56,15 @@
     //add tilemap
     this.map = this.add.tilemap('map');
     this.map.addTilesetImage('plataformas');
-    this.map.setCollisionBetween(0, 5);
+    this.map.setCollisionBetween(0, 6);
     // this.map.setCollision(7);
-    this.map.setCollisionBetween( 8, 10);
-    this.map.setCollisionBetween(27, 28);
-    this.map.setCollisionBetween(40, 45);
-    this.map.setCollisionBetween(56, 58);
+    this.map.setCollisionBetween(8, 11);
+    this.map.setCollisionBetween(14, 17);
+    this.map.setCollisionBetween(28, 30);
+    this.map.setCollisionBetween(42, 47);
+    this.map.setCollisionBetween(58, 60);
+    this.map.setCollisionBetween(91, 93);
+    this.map.setCollisionBetween(100, 102);
       
     this.layer = this.map.createLayer('Capa de Patrones 1');
     this.layer.resizeWorld();
@@ -132,7 +135,7 @@
           }
       }
       //boy dead, reset in pos(25,25)
-      if ((this.spriteBoy.body.y > 900) || (this.spriteBoy.body.x < -60))
+      if ((this.spriteBoy.body.y > 1200) || (this.spriteBoy.body.x < -60))
       {
         this.spriteBoy.body.x = 25;
         this.spriteBoy.body.y = 25;
