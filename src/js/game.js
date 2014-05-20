@@ -155,7 +155,7 @@
     //   // this.spriteBoy.frame = 0;
     //   // this.spriteBoy.animations.stop();
     // }
-      this.spriteBoy.body.setSize(57,71,0,0);
+      this.spriteBoy.body.setSize(46,71,0,0);
       this.spriteBoy.body.velocity.x = 0;
     
     
