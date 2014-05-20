@@ -39,9 +39,12 @@
     this.spriteBoy.animations.add('up&left', [12], 8, true);
     this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
     this.spriteBoy.animations.add('atackLeft', [23, 22], 3, true);
+    this.spriteBoy.animations.add('boyDieRight', [24, 25, 26], 7, true);
+    this.spriteBoy.animations.add('boyDieLeft', [29, 28, 27], 7, false);
     
     this.animationLast = 'stopRight';
     
+
       
     // Create the shadow texture
     this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
@@ -121,12 +124,15 @@
           this.enemys[i].enemySprite.body.x += 1;
 
           
-           this.enemys[i].enemySprite.frame = 0;
+           //this.enemys[i].enemySprite.frame = 0;
+           
 
         }
         else
         {
+          this.spriteEnemy.animations.play('enemyRight');
           this.enemys[i].enemyDir = false;
+          
         }
         //left
         if((!this.enemys[i].enemyDir) && ( this.enemys[i].enemyX - this.enemys[i].enemyMove < this.enemys[i].enemySprite.body.x ))
@@ -134,10 +140,11 @@
             
             this.enemys[i].enemySprite.body.x -= 1;
 
-            this.enemys[i].enemySprite.frame = 6;
+            //this.enemys[i].enemySprite.frame = 6;
           }
           else
           {
+            this.spriteEnemy.animations.play('enemyLeft');
             this.enemys[i].enemyDir = true;
           }
       }
@@ -234,6 +241,10 @@
            this.spriteBoy.body.velocity.x = 140;
           }
     }
+    else if(this.input.keyboard.isDown(Phaser.Keyboard.S)){
+      this.spriteBoy.animations.play('boyDieRight');
+
+    }
     // Update the shadow texture each frame
      // this.updateShadowTexture();
 },
@@ -241,7 +252,12 @@
 boyDead: function(){ 
       this.spriteBoy.body.x = 25;
       this.spriteBoy.body.y = 750;
-    },
+    if(this.animationLast === 'stopRight'){
+      this.spriteBoy.animations.play('boyDieRight');
+    }else if(this.animationLast === 'stopLeft'){
+      this.spriteBoy.animations.play('boyDieLeft');
+    }
+},
 //objeto donde se implementarán los atributos del niño según nos lo vayan pasando
 boyPlayer: function(lives, weapon, sprite){ 
       this.lives = lives;
@@ -260,6 +276,9 @@ newEnemy: function(posX, posY, range){
     this.spriteEnemy = this.add.sprite(posX, posY, 'enemy');
     this.enemys.unshift(new this.enemyNode( 3, this.spriteEnemy, posX, range));
     this.physics.enable(this.enemys[0].enemySprite);
+    this.spriteEnemy.animations.add('enemyDie', [9, 10, 11, 12], 8, true);
+    this.spriteEnemy.animations.add('enemyLeft', [0, 1, 2, 3, 4], 8, true);
+    this.spriteEnemy.animations.add('enemyRight', [8, 7, 6, 5], 8, true);
     },
 
   //nodo  s de la lista de enemigos
