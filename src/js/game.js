@@ -25,7 +25,7 @@
 
     //Set animations for player and enemys
     //this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
-    this.spriteBoy = this.add.sprite( 25, 25, 'boy');
+    this.spriteBoy = this.add.sprite( 25, 750, 'boy');
     //Boy animations
     this.spriteBoy.animations.add('left', [8, 9, 10], 8, true);
     this.spriteBoy.animations.add('stopLeft', [15], 8, true);
@@ -104,12 +104,16 @@
 
 
       this.physics.arcade.collide(this.spriteBoy, this.layer);
+      //this.physics.arcade.collide(this.enemys[i].enemySprite, this.spriteBoy);
 
       //enemys
       for (var i = 0, l = this.enemys.length; i < l; i++)
       {
         this.physics.arcade.collide(this.enemys[i].enemySprite, this.layer);
         this.enemys[i].enemySprite.body.setSize(80,70,0,0);
+        this.physics.arcade.overlap(this.spriteBoy, this.enemys[i].enemySprite, function (boy, enemy) {
+          this.boyDead();
+        }, null, this);
         //enemys move
         //right
         if( (this.enemys[i].enemyDir) && ( this.enemys[i].enemyX + this.enemys[i].enemyMove > this.enemys[i].enemySprite.body.x ) )
@@ -137,11 +141,10 @@
             this.enemys[i].enemyDir = true;
           }
       }
-      //boy dead, reset in pos(25,25)
+      //out of bounds, boy is dead
       if ((this.spriteBoy.body.y > 1200) || (this.spriteBoy.body.x < -60))
       {
-        this.spriteBoy.body.x = 25;
-        this.spriteBoy.body.y = 25;
+        this.boyDead();
       }
 
       
@@ -231,13 +234,14 @@
            this.spriteBoy.body.velocity.x = 140;
           }
     }
-
-        //no funciona correctamente, 
     // Update the shadow texture each frame
      // this.updateShadowTexture();
 },
-
-
+//boy dead, reset in pos(25,750)
+boyDead: function(){ 
+      this.spriteBoy.body.x = 25;
+      this.spriteBoy.body.y = 750;
+    },
 //objeto donde se implementarán los atributos del niño según nos lo vayan pasando
 boyPlayer: function(lives, weapon, sprite){ 
       this.lives = lives;
