@@ -33,7 +33,7 @@
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
     this.spriteBoy.animations.add('up', [16, 17], 3, true);
     this.spriteBoy.animations.add('up&right', [11, 12, 13], 8, true);
-    this.spriteBoy.animations.add('atack', [20, 21], 3, true);
+    this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
     
     this.animationLast = 'stop';
     
@@ -156,7 +156,7 @@
     //Atack
 
     if(this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-      this.spriteBoy.animations.play('atack');
+      this.spriteBoy.animations.play('atackRight');
     }  
     //Jump 
     if (this.input.keyboard.isDown(Phaser.Keyboard.UP))
