@@ -31,7 +31,7 @@
     this.spriteBoy.animations.add('stopLeft', [15], 8, true);
     this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
-    this.spriteBoy.animations.add('up', [16, 17], 3, true);
+    this.spriteBoy.animations.add('up', [16, 17], 5, true);
     this.spriteBoy.animations.add('up&right', [11, 12, 13], 8, true);
     this.spriteBoy.animations.add('up&left', [14, 13, 12, 11], 8, true);
     this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
@@ -152,7 +152,7 @@
     //   // this.spriteBoy.frame = 0;
     //   // this.spriteBoy.animations.stop();
     // }
-      this.spriteBoy.body.setSize(57,70,0,0);
+      this.spriteBoy.body.setSize(57,71,0,0);
       this.spriteBoy.body.velocity.x = 0;
     
     
