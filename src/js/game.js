@@ -28,12 +28,14 @@
     this.spriteBoy = this.add.sprite( 25, 25, 'boy');
     //Boy animations
     this.spriteBoy.animations.add('left', [8, 9, 10], 8, true);
-    this.spriteBoy.animations.add('stopLeft', [10], 8, true);
+    this.spriteBoy.animations.add('stopLeft', [15], 8, true);
     this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
     this.spriteBoy.animations.add('up', [16, 17], 3, true);
     this.spriteBoy.animations.add('up&right', [11, 12, 13], 8, true);
+    this.spriteBoy.animations.add('up&left', [14, 13, 12, 11], 8, true);
     this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
+    this.spriteBoy.animations.add('atackLeft', [23, 22], 3, true);
     
     this.animationLast = 'stop';
     
@@ -153,16 +155,22 @@
       this.spriteBoy.body.setSize(57,70,0,0);
       this.spriteBoy.body.velocity.x = 0;
     
+    
     //Atack
 
     if(this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-      this.spriteBoy.animations.play('atackRight');
+      if(this.animationLast === 'stopRight'){
+        this.spriteBoy.animations.play('atackRight');
+      }
+      else if(this.animationLast === 'stopLeft'){
+        this.spriteBoy.animations.play('atackLeft');
+      }
     }  
     //Jump 
     if (this.input.keyboard.isDown(Phaser.Keyboard.UP))
     {
       this.spriteBoy.animations.play('up');
-      this.animationLast = 'stopLeft';
+      //this.animationLast = 'stopLeft';
         if (this.spriteBoy.body.onFloor())
         {
             this.spriteBoy.body.velocity.y = -300;
