@@ -31,7 +31,10 @@
     this.spriteBoy.animations.add('stopLeft', [15], 8, true);
     this.spriteBoy.animations.add('right', [1, 2, 3], 8, true);
     this.spriteBoy.animations.add('stopRight', [0], 8, true);
-    this.spriteBoy.animations.add('up', [16, 17], 5, true);
+    this.spriteBoy.animations.add('upLookingRight', [16, 17], 5, false);
+    this.spriteBoy.animations.add('upLookingLeft', [19, 18], 5, false);
+    this.spriteBoy.animations.add('upAirRight', [17], 5, true);
+    this.spriteBoy.animations.add('upAirLeft', [18], 5, true);
     this.spriteBoy.animations.add('up&right', [5], 8, true);
     this.spriteBoy.animations.add('up&left', [12], 8, true);
     this.spriteBoy.animations.add('atackRight', [20, 21], 3, true);
@@ -174,11 +177,24 @@
     {
       
       //this.animationLast = 'stopLeft';
-        if (this.spriteBoy.body.onFloor())
+        if (this.spriteBoy.body.onFloor() && this.animationLast === 'stopRight')
         {
-            this.spriteBoy.animations.play('up');
+            this.spriteBoy.animations.play('upLookingRight');
             this.spriteBoy.body.velocity.y = -280;
+        } else if (this.spriteBoy.body.onFloor() && this.animationLast === 'stopLeft')
+          {
+            this.spriteBoy.animations.play('upLookingLeft');
+            this.spriteBoy.body.velocity.y = -280;
+          }
+
+        if(!this.spriteBoy.body.onFloor() && this.animationLast === 'stopRight')
+        {
+            this.spriteBoy.animations.play('upAirRight');
+        }else if(!this.spriteBoy.body.onFloor() && this.animationLast === 'stopLeft'){
+            this.spriteBoy.animations.play('upAirLeft');
         }
+
+            
     }
   
     // If  the player press two keys at the same time
@@ -195,9 +211,9 @@
            this.animationLast = 'stopLeft';
            this.spriteBoy.body.velocity.x = -200;
         } else{
-          this.spriteBoy.animations.play('up&left');
-          this.animationLast = 'stopLeft';
-          this.spriteBoy.body.velocity.x = -140;
+           this.spriteBoy.animations.play('up&left');
+           this.animationLast = 'stopLeft';
+           this.spriteBoy.body.velocity.x = -140;
           }
       
     }
@@ -210,9 +226,9 @@
            this.animationLast = 'stopRight';
            this.spriteBoy.body.velocity.x = 200;
         } else{
-          this.spriteBoy.animations.play('up&right');
-          this.animationLast = 'stopRight';
-          this.spriteBoy.body.velocity.x = 140;
+           this.spriteBoy.animations.play('up&right');
+           this.animationLast = 'stopRight';
+           this.spriteBoy.body.velocity.x = 140;
           }
     }
 
