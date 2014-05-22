@@ -20,7 +20,7 @@
       this.creditsBackground = this.add.sprite(0, 0, 'creditsBackground');
 
 
-      this.buttonBack = this.add.button(550, 500, 'buttonBack', function() { this.game.state.start('menu') }, this, 1, 0, 0);
+      this.buttonBack = this.add.button(580, 500, 'buttonBack', function() { this.game.state.start('menu') }, this, 1, 0, 0);
 
     },
 

@@ -1,0 +1,18 @@
+{ 
+"enemys": [
+{ "posX":500 , "posY":1020 , "range":50, "velocity":1},
+{ "posX":865 , "posY":920 , "range":80, "velocity":2},
+{ "posX":1120 , "posY":960 , "range":30, "velocity":0.7},
+{ "posX":1010 , "posY":520 , "range":60, "velocity":1.5},
+{ "posX":2037 , "posY":220 , "range":100, "velocity":2.5},
+{ "posX":2920 , "posY":420 , "range":60, "velocity":1.5},
+{ "posX":4060 , "posY":520 , "range":110, "velocity":3.5},
+{ "posX":5460 , "posY":360 , "range":150, "velocity":4},
+{ "posX":5990 , "posY":420 , "range":150, "velocity":3.5},
+{ "posX":6680 , "posY":360 , "range":80, "velocity":4},
+{ "posX":7660 , "posY":260 , "range":80, "velocity":2.5},
+{ "posX":7760 , "posY":260 , "range":200, "velocity":3.5},
+{ "posX":8240 , "posY":260 , "range":100, "velocity":1.5},
+{ "posX":9240 , "posY":560 , "range":110, "velocity":3.5}
+ ]
+}
