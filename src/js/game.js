@@ -25,7 +25,7 @@
 
     //Set animations for player and enemys
     //this.boy = new this.boyPlayer(3,'sword',this.add.sprite(25, 25, 'boy'));
-    this.spriteBoy = this.add.sprite( 25, 750, 'boy');
+    this.spriteBoy = this.add.sprite( 20, 795, 'boy');
     //Boy animations
     this.spriteBoy.animations.add('left', [8, 9, 10], 8, true);
     this.spriteBoy.animations.add('stopLeft', [15], 8, true);
@@ -45,7 +45,11 @@
     this.animationLast = 'stopRight';
     
 
-      
+     // New
+     // Bed 
+     this.bed = this.add.sprite( 20, 800, 'bed'); 
+     this.bed.animations.add('bedanimation', [0, 1, 2, 3, 4, 5, 6, 7], 4, false);
+     this.bed.animations.play('bedanimation');
     // Create the shadow texture
     this.shadowTexture = this.game.add.bitmapData(this.game.world.width, this.game.world.height);
 
@@ -241,12 +245,9 @@
            this.spriteBoy.body.velocity.x = 140;
           }
     }
-    else if(this.input.keyboard.isDown(Phaser.Keyboard.S)){
-      this.spriteBoy.animations.play('boyDieRight');
-
-    }
+    
     // Update the shadow texture each frame
-     // this.updateShadowTexture();
+    // this.updateShadowTexture();
 },
 //boy dead, reset in pos(25,750)
 boyDead: function(){ 

@@ -20,6 +20,7 @@
 
       this.load.spritesheet('boy', 'assets/boymoving.png', 57, 76);
       this.load.spritesheet('enemy', 'assets/enemy1moving.png', 105, 72);
+      this.load.spritesheet('bed', 'assets/bedmoving.png', 140, 111); // New
       this.load.spritesheet('buttonCredits', 'assets/buttonCredits.png', 278, 127);
       this.load.spritesheet('buttonBack', 'assets/buttonBack.png', 234, 107);
       
