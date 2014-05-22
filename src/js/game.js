@@ -30,6 +30,8 @@
     var lightSprite = this.game.add.image(0, 0, this.shadowTexture);
     lightSprite.fixedToCamera = true;
 
+    //bed 
+
     // Set the blend mode to MULTIPLY. This will darken the colors of
     // everything below this sprite.
     lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
@@ -53,11 +55,15 @@
     this.spriteBoy.animations.add('boyDieLeft', [29, 28, 27], 7, false);
     
     this.animationLast = 'stopRight';
-    
+      this.physics.startSystem(Phaser.Physics.ARCADE);
     //bed
     this.bed = this.add.sprite( 20, 800, 'bed'); 
-    this.bed.animations.add('bedanimation', [0, 1, 2, 3, 4, 5, 6, 7], 4, false);
+    this.bed.animations.add('bedanimation', [0, 1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1, 0], 2, true);
     this.bed.animations.play('bedanimation');
+    this.physics.enable(this.bed);
+    this.beddir = true;
+    //this.bed.body.velocity.y = 1;
+
 
     //Audio 
 
@@ -66,7 +72,7 @@
 
       
 
-    this.physics.startSystem(Phaser.Physics.ARCADE);
+  
     this.stage.backgroundColor = '#FFFFFF';
     //add tilemap
     this.map = this.add.tilemap('map');
@@ -120,6 +126,39 @@
 
     update: function () {
       //console.log (this.spriteBoy.x + " + " + this.spriteBoy.y);
+      //raius light size update
+      if(this.spriteBoy.x > 800){
+         this.LIGHT_RADIUS = 380;
+      }else if(this.spriteBoy.x > 1600){
+         this.LIGHT_RADIUS = 340;
+      }else if(this.spriteBoy.x > 2100){
+         this.LIGHT_RADIUS = 300;
+      }else if(this.spriteBoy.x > 2600){
+         this.LIGHT_RADIUS = 280;
+      }else if(this.spriteBoy.x > 3100){
+         this.LIGHT_RADIUS = 240;
+      }else if(this.spriteBoy.x > 3400){
+         this.LIGHT_RADIUS = 200;
+      }
+      //bed animation
+      this.bed.x = this.spriteBoy.x + 200;
+      this.bed.y = this.spriteBoy.y - 200;
+  
+      /*this.bed.y = this.spriteBoy.y + 150;  
+      console.log(this.beddir);
+      if(this.beddir){
+        if(this.bed.y > this.spriteBoy.y + 100){
+          this.beddir = false;
+        }
+        this.bed.y -= 1;
+      }
+      if(this.beddir){
+        if((this.bed.y > this.spriteBoy.y - 100)){
+          this.beddir = true;
+        }
+          this.bed.y += 1;
+      }*/
+
 
       //position y weapon
       this.weapon.y = this.spriteBoy.y+30 ;
